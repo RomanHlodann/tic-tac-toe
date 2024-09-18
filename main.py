@@ -35,7 +35,9 @@ while True:
             game_over = True
 
         if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
-            make_move(screen, event, player)
+            if not make_move(screen, event, player):
+                continue
+
             result = check_win(player)
 
             if result:
