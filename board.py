@@ -70,9 +70,6 @@ def make_move(screen, event, player):
     clicked_row = mouseY // SQUARE_SIZE
     clicked_col = mouseX // SQUARE_SIZE
 
-    print(clicked_row)
-    print(clicked_col)
-
     if is_square_empty(clicked_row, clicked_col):
         mark_square(clicked_row, clicked_col, player)
         draw_figures(screen)
