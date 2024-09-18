@@ -2,7 +2,6 @@ import pygame
 
 from settings import *
 
-
 board = [[0 for _ in range(3)] for _ in range(3)]
 
 
@@ -32,22 +31,30 @@ def draw_figures(screen):
                                  CROSS_WIDTH)
 
 
+def get_center(index, size):
+    return index * size + size // 2
+
+
 def draw_win_line(screen, win_type, index):
+    padding = 15
+
     if win_type == "row":
-        start_position = (15, index * SQUARE_SIZE + SQUARE_SIZE // 2)
-        end_position = (WIDTH - 15, index * SQUARE_SIZE + SQUARE_SIZE // 2)
+        y = get_center(index, SQUARE_SIZE)
+        start_position = (padding, y)
+        end_position = (WIDTH - padding, y)
 
     elif win_type == "column":
-        start_position = (index * SQUARE_SIZE + SQUARE_SIZE // 2, 15)
-        end_position = (index * SQUARE_SIZE + SQUARE_SIZE // 2, HEIGHT - 15)
+        x = get_center(index, SQUARE_SIZE)
+        start_position = (x, padding)
+        end_position = (x, HEIGHT - padding)
 
-    elif win_type == "diagonal" and index == 1:
-        start_position = (15, 15)
-        end_position = (WIDTH - 15, HEIGHT - 15)
-
-    elif win_type == "diagonal" and index == 2:
-        start_position = (WIDTH - 15, 15)
-        end_position = (15, HEIGHT - 15)
+    elif win_type == "diagonal":
+        if index == 1:
+            start_position = (padding, padding)
+            end_position = (WIDTH - padding, HEIGHT - padding)
+        elif index == 2:
+            start_position = (WIDTH - padding, padding)
+            end_position = (padding, HEIGHT - padding)
 
     pygame.draw.line(screen, RED, start_position, end_position, LINE_WIDTH)
 
@@ -73,10 +80,7 @@ def is_square_empty(row, col):
 
 
 def is_board_full():
-    for row in board:
-        if 0 in row:
-            return False
-    return True
+    return not any(0 in row for row in board)
 
 
 def restart(screen):
