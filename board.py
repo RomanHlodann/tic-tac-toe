@@ -34,20 +34,22 @@ def draw_figures(screen):
 
 def draw_win_line(screen, win_type, index):
     if win_type == "row":
-        pygame.draw.line(screen, RED, (15, index * SQUARE_SIZE + SQUARE_SIZE // 2),
-                         (WIDTH - 15, index * SQUARE_SIZE + SQUARE_SIZE // 2), LINE_WIDTH)
+        start_position = (15, index * SQUARE_SIZE + SQUARE_SIZE // 2)
+        end_position = (WIDTH - 15, index * SQUARE_SIZE + SQUARE_SIZE // 2)
 
     elif win_type == "column":
-        pygame.draw.line(screen, RED, (index * SQUARE_SIZE + SQUARE_SIZE // 2, 15),
-                         (index * SQUARE_SIZE + SQUARE_SIZE // 2, HEIGHT - 15), LINE_WIDTH)
+        start_position = (index * SQUARE_SIZE + SQUARE_SIZE // 2, 15)
+        end_position = (index * SQUARE_SIZE + SQUARE_SIZE // 2, HEIGHT - 15)
 
     elif win_type == "diagonal" and index == 1:
-        pygame.draw.line(screen, RED, (15, 15),
-                         (WIDTH - 15, HEIGHT - 15), LINE_WIDTH)
+        start_position = (15, 15)
+        end_position = (WIDTH - 15, HEIGHT - 15)
 
     elif win_type == "diagonal" and index == 2:
-        pygame.draw.line(screen, RED, (WIDTH - 15, 15),
-                         (15, HEIGHT - 15), LINE_WIDTH)
+        start_position = (WIDTH - 15, 15)
+        end_position = (15, HEIGHT - 15)
+
+    pygame.draw.line(screen, RED, start_position, end_position, LINE_WIDTH)
 
 
 def mark_square(row, col, player):
