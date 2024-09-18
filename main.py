@@ -7,7 +7,8 @@ from board import (
     draw_lines,
     make_move,
     restart,
-    draw_win_line
+    draw_win_line,
+    is_board_full
 )
 
 
@@ -29,6 +30,9 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+        if is_board_full():
+            game_over = True
 
         if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
             make_move(screen, event, player)
